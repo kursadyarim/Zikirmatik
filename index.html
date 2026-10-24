@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#07211f">
+<title>Zikirmatik</title>
+<style>
+/* ===== Varsayılan tema: Zümrüt Gece (v1'deki görünüm aynen korunur) ===== */
+:root{
+  --bg1:#061a19; --bg2:#0f3d38;
+  --bgImage:radial-gradient(120% 90% at 50% 0%,#0f3d38,#061a19 70%);
+  --gold:#e9c46a; --gold2:#c9973a; --onGold:#2b2108;
+  --ivory:#f6efd6; --teal:#2a9d8f; --muted:#8fc2b8;
+  --card:rgba(255,255,255,.07); --card2:rgba(255,255,255,.10); --press:rgba(255,255,255,.14);
+  --line:rgba(233,196,106,.25); --lineSoft:rgba(233,196,106,.18); --lineFaint:rgba(233,196,106,.10);
+  --bead:#2c6b64; --beadLine:rgba(255,255,255,.12); --beadOn:#f6efd6; --beadOnLine:rgba(255,255,255,.7);
+  --imame:#7a5e1a; --imameLine:rgba(233,196,106,.7); --imameOn:#e9c46a; --imameOnLine:#fff3c4;
+  --end:#6b4f12; --endLine:#e9c46a; --endOn:#f4a261;
+  --btn1:#26867c; --btn2:#0e3f39; --btnLine:rgba(233,196,106,.55); --btnText:#f6efd6;
+  --btnGlow:rgba(42,157,143,.35); --btnShadow:rgba(0,0,0,.45); --btnInset:rgba(233,196,106,.12); --btnInset2:rgba(233,196,106,.25);
+  --cntGlow:rgba(233,196,106,.45);
+  --glowA:rgba(42,157,143,.35); --glowB:rgba(233,196,106,.10);
+  --navBg:rgba(4,18,17,.88); --dlgBg:#0d2f2b; --toastBg:rgba(10,40,36,.96);
+  --inputBg:rgba(0,0,0,.3); --swOff:rgba(255,255,255,.15); --swKnob:#fff;
+  --testBg:rgba(42,157,143,.35); --mainAct1:rgba(42,157,143,.55); --mainAct2:rgba(42,157,143,.25);
+  --danger:#ff9d9d; --dangerLine:rgba(255,110,110,.4); --overlay:rgba(0,0,0,.6);
+  --fx1:#e9c46a; --fx2:#f6efd6; --fx3:#2a9d8f; --fx4:#f4a261; --star:#f6efd6;
+  --size:max(230px,min(88vw,calc(100dvh - 340px),430px));
+}
+/* ===== Ay Işığı: serin bir yaz akşamı ===== */
+:root[data-theme="ay"]{
+  --bg1:#070e22; --bg2:#14305a;
+  --bgImage:radial-gradient(70% 40% at 88% 4%,rgba(196,215,255,.20),transparent 62%),linear-gradient(180deg,#070f26 0%,#0c1f45 50%,#123a63 100%);
+  --gold:#bcd4ff; --gold2:#7ea4e6; --onGold:#07142e;
+  --ivory:#eaf2ff; --teal:#4fc3d9; --muted:#93add4;
+  --card:rgba(180,205,255,.08); --card2:rgba(180,205,255,.12); --press:rgba(180,205,255,.18);
+  --line:rgba(188,212,255,.28); --lineSoft:rgba(188,212,255,.20); --lineFaint:rgba(188,212,255,.10);
+  --bead:#2c4a7e; --beadLine:rgba(200,220,255,.15); --beadOn:#eaf2ff; --beadOnLine:rgba(255,255,255,.75);
+  --imame:#6f6230; --imameLine:rgba(255,226,140,.75); --imameOn:#ffe08a; --imameOnLine:#fff6cf;
+  --end:#5c4a24; --endLine:#ffe08a; --endOn:#ffb86b;
+  --btn1:#2f6aa8; --btn2:#0f2a55; --btnLine:rgba(188,212,255,.6); --btnText:#eaf2ff;
+  --btnGlow:rgba(79,195,217,.35); --btnShadow:rgba(0,0,0,.5); --btnInset:rgba(188,212,255,.14); --btnInset2:rgba(188,212,255,.28);
+  --cntGlow:rgba(188,212,255,.5);
+  --glowA:rgba(79,195,217,.30); --glowB:rgba(188,212,255,.14);
+  --navBg:rgba(6,14,34,.88); --dlgBg:#0e2347; --toastBg:rgba(10,26,58,.96);
+  --inputBg:rgba(0,0,20,.35); --swOff:rgba(200,220,255,.18);
+  --testBg:rgba(79,195,217,.30); --mainAct1:rgba(79,195,217,.50); --mainAct2:rgba(79,195,217,.22);
+  --fx1:#bcd4ff; --fx2:#eaf2ff; --fx3:#4fc3d9; --fx4:#ffe08a; --star:#eaf2ff;
+}
+/* ===== Gün Batımı ===== */
+:root[data-theme="gunbatimi"]{
+  --bg1:#1a0a1c; --bg2:#4a1a2e;
+  --bgImage:radial-gradient(100% 55% at 50% 108%,rgba(255,140,60,.50),transparent 65%),linear-gradient(180deg,#1b0b22 0%,#3d1531 52%,#6b2630 100%);
+  --gold:#ffb86b; --gold2:#e9692f; --onGold:#2a0d05;
+  --ivory:#fff0e2; --teal:#e8647f; --muted:#e0aaa5;
+  --card:rgba(255,220,200,.08); --card2:rgba(255,220,200,.12); --press:rgba(255,220,200,.18);
+  --line:rgba(255,184,107,.30); --lineSoft:rgba(255,184,107,.22); --lineFaint:rgba(255,184,107,.11);
+  --bead:#7a3446; --beadLine:rgba(255,220,200,.15); --beadOn:#fff0e2; --beadOnLine:rgba(255,255,255,.7);
+  --imame:#8a4a1a; --imameLine:rgba(255,184,107,.75); --imameOn:#ffb86b; --imameOnLine:#ffe3c2;
+  --end:#7a3a12; --endLine:#ffb86b; --endOn:#ff7a45;
+  --btn1:#b2455a; --btn2:#4e1730; --btnLine:rgba(255,184,107,.6); --btnText:#fff0e2;
+  --btnGlow:rgba(232,100,127,.4); --btnShadow:rgba(0,0,0,.45); --btnInset:rgba(255,184,107,.14); --btnInset2:rgba(255,184,107,.28);
+  --cntGlow:rgba(255,184,107,.5);
+  --glowA:rgba(232,100,127,.35); --glowB:rgba(255,184,107,.14);
+  --navBg:rgba(26,10,28,.9); --dlgBg:#3a1530; --toastBg:rgba(50,16,36,.96);
+  --inputBg:rgba(20,0,10,.35); --swOff:rgba(255,220,200,.18);
+  --testBg:rgba(232,100,127,.32); --mainAct1:rgba(232,100,127,.50); --mainAct2:rgba(232,100,127,.22);
+  --fx1:#ffb86b; --fx2:#fff0e2; --fx3:#e8647f; --fx4:#ff7a45; --star:#ffe3c2;
+}
+/* ===== Sabah Işığı (açık tema) ===== */
+:root[data-theme="sabah"]{
+  --bg1:#f3e9cf; --bg2:#fff8e4;
+  --bgImage:radial-gradient(75% 45% at 12% 0%,rgba(255,206,110,.55),transparent 65%),linear-gradient(180deg,#fff8e6 0%,#f5ebd0 100%);
+  --gold:#9a6a10; --gold2:#74500b; --onGold:#fffaf0;
+  --ivory:#2b291d; --teal:#1f8a7c; --muted:#6b6850;
+  --card:rgba(90,70,20,.07); --card2:rgba(90,70,20,.10); --press:rgba(90,70,20,.16);
+  --line:rgba(140,100,20,.32); --lineSoft:rgba(140,100,20,.22); --lineFaint:rgba(140,100,20,.12);
+  --bead:#d8c9a0; --beadLine:rgba(90,70,20,.25); --beadOn:#1f7a6d; --beadOnLine:rgba(0,0,0,.35);
+  --imame:#e6c981; --imameLine:#9a6a10; --imameOn:#c9731a; --imameOnLine:#6e3f08;
+  --end:#e1b866; --endLine:#74500b; --endOn:#b5452b;
+  --btn1:#fffaf0; --btn2:#eadbb0; --btnLine:rgba(154,106,16,.6); --btnText:#2b291d;
+  --btnGlow:rgba(31,138,124,.25); --btnShadow:rgba(90,70,20,.30); --btnInset:rgba(154,106,16,.10); --btnInset2:rgba(154,106,16,.22);
+  --cntGlow:rgba(255,255,255,0);
+  --glowA:rgba(31,138,124,.18); --glowB:rgba(255,196,90,.30);
+  --navBg:rgba(255,249,232,.94); --dlgBg:#fffaf0; --toastBg:rgba(255,250,238,.98);
+  --inputBg:rgba(255,255,255,.75); --swOff:rgba(90,70,20,.25);
+  --testBg:rgba(31,138,124,.18); --mainAct1:rgba(31,138,124,.30); --mainAct2:rgba(31,138,124,.14);
+  --danger:#b3261e; --dangerLine:rgba(179,38,30,.45); --overlay:rgba(40,30,10,.45);
+  --fx1:#e0a020; --fx2:#1f8a7c; --fx3:#c9731a; --fx4:#b5452b; --star:#c9a24a;
+}
+:root[data-theme="sabah"] #stars i{display:none}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg1);color:var(--ivory);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;border:0;background:none;touch-action:manipulation;cursor:pointer}
+body{background:var(--bgImage)}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+#stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--star);opacity:.15;animation:twinkle 4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.08;transform:scale(.8)}50%{opacity:.55;transform:scale(1.4)}}
+/* Ay Işığı süsleri: ay ve ateş böcekleri */
+#moon{display:none;position:fixed;top:12px;right:14px;width:56px;height:56px;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 36% 34%,#fffef4 0%,#eef3ff 45%,#c3d0ee 100%);
+  box-shadow:0 0 26px 8px rgba(200,220,255,.45),0 0 80px 26px rgba(150,185,255,.20);animation:moonglow 6s ease-in-out infinite alternate}
+#moon::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 62% 30%,rgba(150,165,200,.35) 0 6%,transparent 7%),radial-gradient(circle at 40% 62%,rgba(150,165,200,.28) 0 9%,transparent 10%),radial-gradient(circle at 70% 66%,rgba(150,165,200,.25) 0 5%,transparent 6%)}
+@keyframes moonglow{from{box-shadow:0 0 22px 6px rgba(200,220,255,.38),0 0 70px 20px rgba(150,185,255,.16)}to{box-shadow:0 0 32px 12px rgba(200,220,255,.55),0 0 100px 34px rgba(150,185,255,.26)}}
+:root[data-theme="ay"] #moon{display:block}
+.ff{display:none;position:absolute;width:5px;height:5px;border-radius:50%;background:#ffeaa0;box-shadow:0 0 8px 3px rgba(255,226,130,.6);opacity:0;animation:ffly var(--d,9s) ease-in-out infinite}
+:root[data-theme="ay"] .ff{display:block}
+@keyframes ffly{0%{opacity:0;transform:translate(0,0)}15%{opacity:.95}50%{opacity:.35;transform:translate(var(--x),var(--y))}85%{opacity:.95}100%{opacity:0;transform:translate(calc(var(--x)*-.5),calc(var(--y)*1.4))}}
+
+#app{position:relative;z-index:1;display:flex;flex-direction:column;height:100dvh}
+main{position:relative;flex:1;min-height:0}
+.tab{position:absolute;inset:0;overflow-y:auto;padding:14px 16px 20px;opacity:0;visibility:hidden;
+  transform:translateY(14px);transition:opacity .35s,transform .35s,visibility .35s}
+.tab.active{opacity:1;visibility:visible;transform:none}
+#tab-zikir{display:flex;flex-direction:column;align-items:center;gap:10px;overflow:hidden}
+
+/* üst kısım */
+.namebtn{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:30px;background:var(--card);
+  border:1px solid var(--line);font-size:1.25rem;font-weight:600;color:var(--gold);transition:transform .15s,background .2s}
+.namebtn:active{transform:scale(.96);background:var(--press)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{min-width:52px;padding:9px 14px;border-radius:22px;background:var(--card);border:1px solid transparent;
+  font-size:1.05rem;font-weight:600;color:var(--muted);transition:all .25s}
+.chip.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--onGold);box-shadow:0 0 14px var(--cntGlow);transform:scale(1.06)}
+.chip:active{transform:scale(.94)}
+
+/* çember */
+.ringWrap{position:relative;width:var(--size);height:var(--size);flex:none}
+.glow{position:absolute;inset:-8%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,var(--glowA),var(--glowB) 55%,transparent 70%);
+  animation:breathe 5s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:scale(.94);opacity:.7}to{transform:scale(1.04);opacity:1}}
+.ringWrap.flash .glow{animation:flash .9s ease-out}
+@keyframes flash{0%{transform:scale(1);opacity:1;filter:brightness(2.4)}100%{transform:scale(1.15);opacity:.8;filter:none}}
+#ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rd1{fill:none;stroke:var(--lineSoft);stroke-width:1}
+.rd2{fill:none;stroke:var(--lineFaint);stroke-width:1}
+.pointer{fill:var(--gold)}
+#beadsG{transform-origin:200px 200px;transform-box:view-box;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.bead{fill:var(--bead);stroke:var(--beadLine);stroke-width:1;transition:fill .3s;transform-box:fill-box;transform-origin:center}
+.bead.on{fill:var(--beadOn);stroke:var(--beadOnLine)}
+.bead.imame{fill:var(--imame);stroke:var(--imameLine);stroke-width:1.5}
+.bead.imame.on{fill:var(--imameOn);stroke:var(--imameOnLine)}
+.bead.end{fill:var(--end);stroke:var(--endLine);stroke-width:2}
+.bead.end.on{fill:var(--endOn)}
+.bead.cur{animation:beadpulse .5s ease-out}
+@keyframes beadpulse{0%{transform:scale(1)}40%{transform:scale(1.7)}100%{transform:scale(1)}}
+.track{fill:none;stroke:var(--bead);stroke-width:10}
+.prog{fill:none;stroke:var(--beadOn);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .35s}
+.tick{stroke:var(--gold);stroke-width:4;stroke-linecap:round}
+#tapBtn{position:absolute;inset:23%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--btnText);
+  background:radial-gradient(circle at 35% 28%,var(--btn1),var(--btn2) 70%);border:2px solid var(--btnLine);
+  box-shadow:0 10px 30px var(--btnShadow),inset 0 0 28px var(--btnInset),0 0 24px var(--btnGlow);
+  transition:transform .09s,box-shadow .2s;outline:none}
+#tapBtn:active,#tapBtn.down{transform:scale(.93);box-shadow:0 4px 14px var(--btnShadow),inset 0 0 34px var(--btnInset2),0 0 34px var(--cntGlow)}
+#cnt{font-size:calc(var(--size)*.17);font-weight:700;line-height:1;letter-spacing:-1px;text-shadow:0 0 18px var(--cntGlow)}
+#cnt.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+#ofTxt{margin-top:4px;font-size:calc(var(--size)*.055);color:var(--muted)}
+#turTxt{margin-top:6px;font-size:calc(var(--size)*.048);color:var(--gold);font-weight:600}
+#fx{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.ripple{position:absolute;inset:22%;border-radius:50%;border:3px solid var(--gold);animation:ripple .65s ease-out forwards}
+@keyframes ripple{from{transform:scale(.7);opacity:.7}to{transform:scale(1.35);opacity:0}}
+.p{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);border-radius:50%;background:var(--c);
+  box-shadow:0 0 10px var(--c);animation:burst 1s ease-out forwards}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2);opacity:0}}
+.shock{position:absolute;inset:18%;border-radius:50%;border:4px solid var(--gold);animation:shock 1s ease-out forwards}
+.shock.tur{border-width:6px;border-color:var(--beadOn)}
+@keyframes shock{from{transform:scale(.6);opacity:.9}to{transform:scale(1.5);opacity:0}}
+.info{font-size:.95rem;color:var(--muted);padding:6px 14px;border-radius:16px;background:var(--card);text-align:center}
+.actions{display:flex;gap:10px;width:100%;max-width:440px}
+.act{flex:1;padding:14px 6px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-size:1.02rem;font-weight:600;transition:transform .12s,background .2s}
+.act:active{transform:scale(.95);background:var(--press)}
+.act.main{background:linear-gradient(135deg,var(--mainAct1),var(--mainAct2))}
+.act small{opacity:.75;font-weight:500}
+
+/* alt menü */
+nav{position:relative;display:flex;padding-bottom:env(safe-area-inset-bottom);background:var(--navBg);border-top:1px solid var(--line);backdrop-filter:blur(8px)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;color:var(--muted);font-size:.85rem;transition:color .25s,transform .15s}
+nav button svg{width:26px;height:26px;transition:transform .3s}
+nav button.on{color:var(--gold)}
+nav button.on svg{transform:translateY(-2px) scale(1.12)}
+nav button:active{transform:scale(.94)}
+#ind{position:absolute;top:0;left:0;width:33.3333%;height:3px;display:flex;justify-content:center;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+#ind i{width:44px;height:3px;border-radius:3px;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+/* geçmiş & ayarlar */
+h2{margin:6px 0 12px;font-size:1.35rem;color:var(--gold)}
+.sums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.sum{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 6px;text-align:center}
+.sum b{display:block;font-size:1.5rem;color:var(--ivory)}
+.sum span{font-size:.85rem;color:var(--muted)}
+.day{margin-top:14px}
+.dayh{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 6px}
+.dayh b{color:var(--gold)} .dayh span{color:var(--muted);font-size:.9rem}
+.hrow{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:11px 12px;margin-bottom:6px;animation:slidein .35s ease-out}
+@keyframes slidein{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+.ht{color:var(--muted);font-variant-numeric:tabular-nums;min-width:48px}
+.hn{flex:1;font-weight:600}
+.hc{font-size:1.2rem;font-weight:700;color:var(--gold)}
+.hdel{width:34px;height:34px;border-radius:50%;color:var(--muted);background:var(--card)}
+.hdel:active{background:rgba(255,80,80,.35)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px;line-height:1.6}
+.dangerbtn{width:100%;margin-top:18px;padding:13px;border-radius:14px;border:1px solid var(--dangerLine);color:var(--danger);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:14px}
+.card h3{margin:0 0 10px;font-size:1.05rem;color:var(--gold)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.row label{flex:1}
+.hint{font-size:.85rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.segs{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.seg{padding:10px 14px;border-radius:14px;background:var(--card);border:1px solid transparent;font-weight:600;color:var(--muted);transition:all .2s}
+.seg.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--onGold)}
+.seg:active{transform:scale(.95)}
+.inp{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--inputBg);color:var(--ivory);font-size:1.05rem;margin-top:6px;-webkit-user-select:text;user-select:text}
+.sw{position:relative;width:54px;height:30px;flex:none}
+.sw input{opacity:0;width:100%;height:100%;position:absolute;margin:0;z-index:2}
+.sw i{position:absolute;inset:0;border-radius:30px;background:var(--swOff);transition:background .25s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--swKnob);transition:transform .25s}
+.sw input:checked+i{background:var(--teal)}
+.sw input:checked+i::after{transform:translateX(24px)}
+input[type=range]{width:100%;accent-color:var(--gold);height:34px}
+.testbtn{margin-top:8px;padding:11px 16px;border-radius:14px;background:var(--testBg);border:1px solid var(--teal);font-weight:600}
+.testbtn:active{transform:scale(.96)}
+/* tema seçici */
+.themes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.theme{position:relative;display:block;width:100%;text-align:left;padding:0;border-radius:16px;overflow:hidden;border:2px solid transparent;background:var(--card);transition:transform .15s,border-color .2s,box-shadow .2s}
+.theme:active{transform:scale(.97)}
+.theme .pv{position:relative;height:64px}
+.theme .pv i{position:absolute;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.theme .pm{position:absolute;top:8px;right:12px;width:14px;height:14px;border-radius:50%;background:#f3f7ff;box-shadow:0 0 10px 3px rgba(190,210,255,.6)}
+.theme .tn{padding:8px 10px}
+.theme .tn b{display:block;font-size:.98rem;color:var(--ivory)}
+.theme .tn span{font-size:.78rem;color:var(--muted);line-height:1.3;display:block}
+.theme.on{border-color:var(--gold);box-shadow:0 0 14px var(--cntGlow)}
+.theme.on::after{content:"✓";position:absolute;top:6px;left:8px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--onGold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+/* kaydet çubuğu */
+.savebar{position:sticky;bottom:0;margin:12px -16px -20px;padding:18px 16px 16px;background:linear-gradient(180deg,transparent,var(--bg1) 38%)}
+.savebtn{width:100%;padding:17px;border-radius:18px;font-size:1.2rem;font-weight:700;color:var(--onGold);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 6px 20px rgba(0,0,0,.35),0 0 18px var(--cntGlow);transition:transform .12s}
+.savebtn:active{transform:scale(.97)}
+
+/* bildirim ve pencere */
+#toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);padding:12px 20px;border-radius:24px;background:var(--toastBg);
+  border:1px solid var(--gold);color:var(--ivory);font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:50;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.ov{position:fixed;inset:0;z-index:60;background:var(--overlay);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadein .2s}
+.ov.out{opacity:0;transition:opacity .18s}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.dlg{width:100%;max-width:380px;max-height:86dvh;overflow:auto;background:var(--dlgBg);border:1px solid var(--gold);border-radius:22px;padding:20px;animation:dlgin .25s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes dlgin{from{transform:scale(.88);opacity:0}to{transform:none;opacity:1}}
+.dlg h3{margin:0 0 8px;color:var(--gold);font-size:1.2rem}
+.dlg p{margin:0 0 12px;line-height:1.5;color:var(--ivory)}
+.dinp{width:100%;padding:13px;margin-bottom:14px;border-radius:12px;border:1px solid var(--line);background:var(--inputBg);color:var(--ivory);font-size:1.15rem;-webkit-user-select:text;user-select:text}
+.dbtns{display:flex;gap:10px;margin-top:6px}
+.dbtns.vert{flex-direction:column}
+.dbtn{flex:1;padding:13px;border-radius:14px;background:var(--card2);font-weight:600;font-size:1rem}
+.dbtn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--onGold)}
+.dbtn:active{transform:scale(.96)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="moon"></div>
+<div id="app">
+  <main>
+    <!-- ZİKİR -->
+    <section id="tab-zikir" class="tab active">
+      <button class="namebtn" id="nameBtn"><span id="zName">Sübhanallah</span><span>▾</span></button>
+      <div class="chips" id="totalChips"></div>
+      <div class="ringWrap" id="ringWrap">
+        <div class="glow"></div>
+        <svg id="ring" viewBox="0 0 400 400">
+          <circle class="rd1" cx="200" cy="200" r="182"/>
+          <circle class="rd2" cx="200" cy="200" r="132"/>
+          <g id="arcG"></g>
+          <g id="beadsG"></g>
+          <path class="pointer" d="M200 8 L211 28 L189 28 Z"/>
+        </svg>
+        <button id="tapBtn" aria-label="Zikir say">
+          <div id="cnt">0</div>
+          <div id="ofTxt">/ 100</div>
+          <div id="turTxt">Tur 0</div>
+        </button>
+        <div id="fx"></div>
+      </div>
+      <div class="info" id="infoLine"></div>
+      <div class="actions">
+        <button class="act" id="undoBtn">↶ Geri al</button>
+        <button class="act main" id="saveBtn">✓ Kaydet <small id="sessTxt"></small></button>
+        <button class="act" id="resetBtn">⟲ Sıfırla</button>
+      </div>
+    </section>
+
+    <!-- GEÇMİŞ -->
+    <section id="tab-gecmis" class="tab">
+      <h2>Zikir geçmişi</h2>
+      <div id="histBody"></div>
+    </section>
+
+    <!-- AYARLAR -->
+    <section id="tab-ayar" class="tab">
+      <h2>Ayarlar</h2>
+      <div id="setBody"></div>
+    </section>
+  </main>
+  <nav>
+    <div id="ind"><i></i></div>
+    <button class="on" data-tab="zikir">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-dasharray="0.01 5.33" stroke-linecap="round"/></svg>Zikir</button>
+    <button data-tab="gecmis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Geçmiş</button>
+    <button data-tab="ayar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h2M12 17h8"/><circle cx="16" cy="7" r="2.3"/><circle cx="9" cy="17" r="2.3"/></svg>Ayarlar</button>
+  </nav>
+</div>
+<div id="toast"></div>
+<div id="modalRoot"></div>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clone=o=>JSON.parse(JSON.stringify(o));
+
+/* ---------- Temalar ---------- */
+const THEMES=[
+  {id:'zumrut',name:'Zümrüt Gece',desc:'İlk tema, koyu yeşil ve altın',bg:'radial-gradient(120% 90% at 50% 0%,#0f3d38,#061a19 70%)',c:['#2c6b64','#f6efd6','#e9c46a'],meta:'#07211f'},
+  {id:'ay',name:'Ay Işığı',desc:'Ay ışığında serin bir yaz akşamı',bg:'linear-gradient(180deg,#070f26,#0c1f45 55%,#123a63)',c:['#2c4a7e','#eaf2ff','#ffe08a'],meta:'#070f26',moon:true},
+  {id:'gunbatimi',name:'Gün Batımı',desc:'Sıcak turuncu ve gül tonları',bg:'radial-gradient(100% 70% at 50% 110%,rgba(255,140,60,.6),transparent 65%),linear-gradient(180deg,#1b0b22,#3d1531 55%,#6b2630)',c:['#7a3446','#fff0e2','#ffb86b'],meta:'#1b0b22'},
+  {id:'sabah',name:'Sabah Işığı',desc:'Açık renkli, gün ışığında rahat okunur',bg:'radial-gradient(75% 60% at 12% 0%,rgba(255,206,110,.7),transparent 65%),linear-gradient(180deg,#fff8e6,#f1e5c4)',c:['#d8c9a0','#1f7a6d','#c9731a'],meta:'#f3e9cf'}
+];
+const THEME_IDS=THEMES.map(t=>t.id);
+function applyTheme(id){
+  if(!THEME_IDS.includes(id)) id='zumrut';
+  document.documentElement.setAttribute('data-theme',id);
+  const m=document.querySelector('meta[name=theme-color]');
+  if(m) m.setAttribute('content',THEMES[THEME_IDS.indexOf(id)].meta);
+}
+
+/* ---------- Veri ---------- */
+const KEY='zikirmatik_v1'; // v1 ile aynı anahtar: eski kayıtlar ve geçmiş korunur
+const DEFAULTS={
+  settings:{total:100,imameMode:'every',imameEvery:33,imameCustom:[],imameFb:'both',turFb:'both',
+    sound:'can',vibPattern:'double',volume:0.7,
+    tapFb:'vibrate',tapVibPattern:'tiny',tapSound:'tik',
+    theme:'zumrut',keepAwake:false,autoSave:false,name:'Sübhanallah'},
+  state:{count:0,rounds:0,session:0},
+  history:[]
+};
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw){
+      const o=JSON.parse(raw), rs=o.settings||{};
+      const d={settings:{...DEFAULTS.settings,...rs},state:{...DEFAULTS.state,...(o.state||{})},history:Array.isArray(o.history)?o.history:[]};
+      if(rs.tapFb===undefined&&('tapVib' in rs||'tapTick' in rs)){ // v1'den geçiş
+        const v=rs.tapVib!==false, t=!!rs.tapTick;
+        d.settings.tapFb=(v&&t)?'both':v?'vibrate':t?'sound':'none';
+      }
+      delete d.settings.tapVib; delete d.settings.tapTick;
+      if(!THEME_IDS.includes(d.settings.theme)) d.settings.theme='zumrut';
+      if(!(d.settings.total>=1&&d.settings.total<=9999)) d.settings.total=100;
+      if(!(d.state.count>=0&&d.state.count<=d.settings.total)) d.state.count=0;
+      return d;
+    }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+let D=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(D));}catch(e){}}
+/* Ayarlar ekranında yapılan değişiklikler önce taslakta (DR) tutulur, Kaydet'e basınca D.settings'e geçer */
+let DR=null;
+const cfg=()=>DR||D.settings;
+
+const PRESETS=[10,33,99,100];
+const RECOMMENDED={100:33,99:33,33:11,10:0};
+const PRESET_NAMES=['Sübhanallah','Elhamdülillah','Allahu Ekber','Lâ ilâhe illallah','Estağfirullah','Salavat-ı Şerife','Serbest zikir'];
+const FB_LABEL={none:'Bildirim yok',vibrate:'Titreşim',sound:'Ses',both:'Ses + titreşim'};
+const SOUND_LABEL={can:'Çan',bip:'Bip',damla:'Damla',gong:'Gong',tahta:'Tahta'};
+const TAPSOUND_LABEL={tik:'Tık',tahta:'Tahta',damla:'Damla',bip:'Bip',can:'Çan'};
+const VIB_LABEL={short:'Kısa',double:'Çift',long:'Uzun'};
+const TAPVIB_LABEL={tiny:'Çok hafif',light:'Hafif',medium:'Orta',double:'Çift'};
+const VIB={short:[70],double:[90,70,90],long:[450]};
+const VIB_TAP={tiny:[15],light:[28],medium:[50],double:[28,45,28]};
+const VIB_TUR=[200,100,200,100,500];
+
+/* ---------- Ses & titreşim ---------- */
+let ac=null;
+function audio(){
+  if(!ac){const C=window.AudioContext||window.webkitAudioContext; if(!C) return null; ac=new C();}
+  if(ac.state==='suspended') ac.resume();
+  return ac;
+}
+function tone(freq,t0,dur,type,gain,slideTo){
+  const a=audio(); if(!a) return;
+  const o=a.createOscillator(), g=a.createGain(), t=a.currentTime+t0, vol=Math.max(0.0002,gain*cfg().volume);
+  o.type=type||'sine'; o.frequency.setValueAtTime(freq,t);
+  if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t+dur);
+  g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+0.012); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+0.05);
+}
+const SOUNDS={
+  can:(m,t)=>{tone(660*m,t,1.5,'sine',.5);tone(1320*m,t,1.0,'sine',.22);tone(1980*m,t,.7,'sine',.12);},
+  bip:(m,t)=>{tone(1000*m,t,.13,'sine',.5);tone(1400*m,t+.14,.13,'sine',.5);},
+  damla:(m,t)=>{tone(1300*m,t,.28,'sine',.55,520*m);},
+  gong:(m,t)=>{tone(140*m,t,2.2,'sine',.7);tone(280*m,t,1.4,'triangle',.25);tone(425*m,t,.9,'sine',.15);},
+  tahta:(m,t)=>{tone(320*m,t,.09,'triangle',.7,150*m);},
+  tik:(m,t)=>{tone(1900*m,t,.045,'square',.22,1100*m);}
+};
+function playSound(name,kind){
+  const f=SOUNDS[name]||SOUNDS.can;
+  if(kind==='tur'){[0,.35,.7].forEach((t,i)=>f(1+i*.15,t));} else f(1,0);
+}
+function vib(p){
+  try{
+    if(window.ZikirNative&&ZikirNative.vibrate){ZikirNative.vibrate(JSON.stringify(Array.isArray(p)?p:[p])); return;}
+    if(navigator.vibrate) navigator.vibrate(p);
+  }catch(e){}
+}
+/* imame ve tur sonu bildirimi */
+function doFb(mode,kind){
+  const S=cfg();
+  if(mode==='vibrate'||mode==='both') vib(kind==='tur'?VIB_TUR:VIB[S.vibPattern]);
+  if(mode==='sound'||mode==='both') playSound(S.sound,kind);
+}
+/* her zikir (tesbih boncuğu) bildirimi */
+function doTapFb(force){
+  const S=cfg(); let m=S.tapFb;
+  if(force&&m==='none') m='both';
+  if(m==='vibrate'||m==='both') vib(VIB_TAP[S.tapVibPattern]||VIB_TAP.tiny);
+  if(m==='sound'||m==='both') (SOUNDS[S.tapSound]||SOUNDS.tik)(1,0);
+}
+
+/* ---------- Küçük yardımcılar ---------- */
+let toastT=null;
+function toast(msg){
+  const t=$('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),1900);
+}
+function dialog({title,text,input,buttons}){
+  return new Promise(resolve=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    const box=document.createElement('div'); box.className='dlg';
+    const h=document.createElement('h3'); h.textContent=title; box.appendChild(h);
+    if(text){const p=document.createElement('p'); p.textContent=text; box.appendChild(p);}
+    let inp=null;
+    if(input){inp=document.createElement('input'); inp.className='dinp'; inp.type=input.type||'text';
+      if(input.inputmode) inp.inputMode=input.inputmode; inp.placeholder=input.placeholder||''; inp.value=input.value==null?'':input.value; box.appendChild(inp);}
+    const row=document.createElement('div'); row.className='dbtns'+(buttons.length>2?' vert':'');
+    const close=v=>{ov.classList.add('out'); setTimeout(()=>ov.remove(),180); resolve(v);};
+    buttons.forEach(b=>{const el=document.createElement('button'); el.className='dbtn'+(b.primary?' primary':''); el.textContent=b.label;
+      el.onclick=()=>close({value:b.value,input:inp?inp.value:null}); row.appendChild(el);});
+    box.appendChild(row); ov.appendChild(box);
+    ov.addEventListener('pointerdown',e=>{if(e.target===ov) close(null);});
+    $('modalRoot').appendChild(ov);
+    if(inp) setTimeout(()=>inp.focus(),60);
+  });
+}
+function dayKey(ts){const d=new Date(ts);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function fmtTime(ts){return new Date(ts).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});}
+function fmtDate(ts){return new Date(ts).toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric',weekday:'long'});}
+
+/* ---------- Tesbih çemberi ---------- */
+let IM=new Set(), beadEls=[], prevCur=0, arcProg=null, arcLen=0;
+function imameSet(){
+  const S=D.settings,N=S.total,s=new Set();
+  if(S.imameMode==='every'){const e=S.imameEvery; if(e>0) for(let p=e;p<N;p+=e) s.add(p);}
+  else if(S.imameMode==='custom'){S.imameCustom.forEach(p=>{if(p>0&&p<N) s.add(p);});}
+  return s;
+}
+const NS='http://www.w3.org/2000/svg';
+function buildRing(){
+  const N=D.settings.total, R=158, g=$('beadsG'), arc=$('arcG');
+  g.innerHTML=''; arc.innerHTML=''; beadEls=[]; arcProg=null; IM=imameSet();
+  if(N<=120){
+    const r=Math.max(3.2,Math.min(11,Math.PI*R/N*0.72));
+    for(let i=1;i<=N;i++){
+      const a=i/N*2*Math.PI, x=200+R*Math.sin(a), y=200-R*Math.cos(a);
+      const isI=IM.has(i), isEnd=(i===N);
+      const c=document.createElementNS(NS,'circle');
+      c.setAttribute('cx',x.toFixed(2)); c.setAttribute('cy',y.toFixed(2));
+      c.setAttribute('r',((isI||isEnd)?r*1.5:r).toFixed(2));
+      c.setAttribute('class','bead'+(isI?' imame':'')+(isEnd?' end':''));
+      g.appendChild(c); beadEls[i]=c;
+    }
+  }else{
+    const tr=document.createElementNS(NS,'circle');
+    tr.setAttribute('cx',200);tr.setAttribute('cy',200);tr.setAttribute('r',R);tr.setAttribute('class','track'); arc.appendChild(tr);
+    arcLen=2*Math.PI*R;
+    const pr=document.createElementNS(NS,'circle');
+    pr.setAttribute('cx',200);pr.setAttribute('cy',200);pr.setAttribute('r',R);pr.setAttribute('class','prog');
+    pr.setAttribute('transform','rotate(-90 200 200)');
+    pr.style.strokeDasharray=arcLen; pr.style.strokeDashoffset=arcLen; arc.appendChild(pr); arcProg=pr;
+    IM.forEach(p=>{
+      const a=p/N*2*Math.PI, x1=200+(R-14)*Math.sin(a), y1=200-(R-14)*Math.cos(a), x2=200+(R+14)*Math.sin(a), y2=200-(R+14)*Math.cos(a);
+      const l=document.createElementNS(NS,'line');
+      l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('class','tick'); arc.appendChild(l);
+    });
+  }
+}
+function setRotation(angle,instant){
+  const g=$('beadsG');
+  if(instant){g.style.transition='none'; g.style.transform=`rotate(${angle}deg)`; void g.getBoundingClientRect(); g.style.transition='';}
+  else g.style.transform=`rotate(${angle}deg)`;
+}
+
+/* ---------- Ekranı çizme ---------- */
+function infoText(){
+  const S=D.settings; let im;
+  if(S.imameMode==='none') im='İmame yok';
+  else if(S.imameMode==='every') im=S.imameEvery>0?`İmame: her ${S.imameEvery} zikirde`:'İmame yok';
+  else im=S.imameCustom.length?`İmame: ${S.imameCustom.filter(p=>p<S.total).join(', ')}. zikirde`:'İmame yok';
+  return `${im} · ${FB_LABEL[S.imameFb]}`;
+}
+function render(animate,instant){
+  const S=D.settings, st=D.state, N=S.total, c=st.count;
+  $('zName').textContent=S.name;
+  const cnt=$('cnt'); cnt.textContent=c;
+  if(animate){cnt.classList.remove('pop'); void cnt.offsetWidth; cnt.classList.add('pop');}
+  $('ofTxt').textContent='/ '+N;
+  const done=st.rounds+(c>=N?1:0);
+  $('turTxt').textContent=done>0?`Tamamlanan tur: ${done}`:'Tur 1';
+  if(beadEls.length){
+    for(let i=1;i<=N;i++){
+      const el=beadEls[i]; if(!el) continue;
+      el.classList.toggle('on',i<=c);
+      if(i===c){ if(prevCur!==c||animate){el.classList.remove('cur'); void el.getBoundingClientRect(); el.classList.add('cur');} }
+      else el.classList.remove('cur');
+    }
+    setRotation(-((st.rounds*N+c)/N)*360,instant);
+  }
+  if(arcProg) arcProg.style.strokeDashoffset=arcLen*(1-c/N);
+  prevCur=c;
+  $('sessTxt').textContent=st.session>0?`(${st.session})`:'';
+  $('infoLine').textContent=infoText();
+  document.querySelectorAll('#totalChips .chip').forEach(ch=>ch.classList.toggle('on',+ch.dataset.n===N));
+}
+function renderChips(){
+  const N=D.settings.total, box=$('totalChips'); box.innerHTML='';
+  const list=PRESETS.slice(); if(!PRESETS.includes(N)) list.push(N); list.sort((a,b)=>a-b);
+  list.forEach(n=>{const b=document.createElement('button'); b.className='chip'; b.dataset.n=n; b.textContent=n; box.appendChild(b);});
+  const o=document.createElement('button'); o.className='chip'; o.dataset.n='custom'; o.textContent='Özel'; box.appendChild(o);
+}
+
+/* ---------- Efektler ---------- */
+function ripple(){
+  const r=document.createElement('div'); r.className='ripple'; $('fx').appendChild(r); setTimeout(()=>r.remove(),700);
+}
+function fxColors(){
+  const cs=getComputedStyle(document.documentElement);
+  return [1,2,3,4].map(i=>(cs.getPropertyValue('--fx'+i)||'').trim()||'#e9c46a');
+}
+function burst(kind){
+  const fx=$('fx'), tur=kind==='tur', n=tur?36:16;
+  const all=fxColors(), cols=tur?all:all.slice(0,2);
+  const base=$('ringWrap').clientWidth/400;
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2, d=((tur?110:70)+Math.random()*(tur?140:70))*Math.max(base,.6);
+    const p=document.createElement('span'); p.className='p';
+    p.style.setProperty('--dx',(Math.cos(a)*d).toFixed(1)+'px'); p.style.setProperty('--dy',(Math.sin(a)*d).toFixed(1)+'px');
+    p.style.setProperty('--s',((tur?6:4)+Math.random()*5).toFixed(1)+'px'); p.style.setProperty('--c',cols[i%cols.length]);
+    fx.appendChild(p); setTimeout(()=>p.remove(),1050);
+  }
+  const s=document.createElement('div'); s.className='shock '+kind; fx.appendChild(s); setTimeout(()=>s.remove(),1050);
+  const w=$('ringWrap'); w.classList.remove('flash'); void w.offsetWidth; w.classList.add('flash');
+}
+
+/* ---------- Sayma ---------- */
+function flushSession(){
+  const st=D.state;
+  if(st.session>0){
+    D.history.push({id:Date.now()+'-'+Math.random().toString(36).slice(2,6),ts:Date.now(),name:D.settings.name,count:st.session});
+    st.session=0; save(); return true;
+  }
+  return false;
+}
+function tap(){
+  const S=D.settings, st=D.state, N=S.total;
+  audio();
+  if(st.count>=N){st.rounds++; st.count=0;}
+  st.count++; st.session++;
+  const c=st.count;
+  ripple();
+  if(c===N){
+    doFb(S.turFb,'tur'); burst('tur'); toast('Tur tamamlandı ✨');
+    if(S.autoSave){const n=st.session; flushSession(); setTimeout(()=>toast(`Tur kaydedildi: ${n}`),1300);}
+  }else if(IM.has(c)){
+    doFb(S.imameFb,'imame'); burst('imame'); toast(`İmame · ${c}`);
+  }else{
+    doTapFb(false);
+  }
+  render(true); save();
+}
+function undo(){
+  const st=D.state, N=D.settings.total;
+  if(st.count===0){ if(st.rounds>0){st.rounds--; st.count=N; if(st.session>0) st.session--;} else {toast('Geri alınacak sayı yok'); return;} }
+  else {st.count--; if(st.session>0) st.session--;}
+  render(false); save(); vib(15);
+}
+function saveSession(){
+  const n=D.state.session;
+  if(!n){toast('Kaydedilecek zikir yok'); return;}
+  flushSession(); render(false); toast(`Geçmişe kaydedildi: ${n}`); vib(30);
+}
+async function resetAll(){
+  const st=D.state;
+  const btns=st.session>0
+    ?[{label:`Kaydet ve sıfırla (${st.session})`,value:'save',primary:true},{label:'Kaydetmeden sıfırla',value:'drop'},{label:'Vazgeç',value:'no'}]
+    :[{label:'Vazgeç',value:'no'},{label:'Sıfırla',value:'drop',primary:true}];
+  const r=await dialog({title:'Sayaç sıfırlansın mı?',text:'Tur ve sayı başa döner.',buttons:btns});
+  if(!r||r.value==='no') return;
+  if(r.value==='save') flushSession();
+  st.count=0; st.rounds=0; st.session=0; save(); render(false,true); toast('Sıfırlandı');
+}
+async function setTotal(n){
+  const S=D.settings, st=D.state;
+  if(n===S.total) return;
+  if(st.count>0){
+    const r=await dialog({title:'Tesbih boyu değişsin mi?',text:`Bu turdaki ${st.count} sayı sıfırlanır. Kayıtlı geçmiş silinmez.`,buttons:[{label:'Vazgeç',value:'no'},{label:'Değiştir',value:'yes',primary:true}]});
+    if(!r||r.value!=='yes') return;
+  }
+  S.total=n; st.count=0; st.rounds=0;
+  let msg=`${n}'lük tesbih`;
+  if(RECOMMENDED[n]!==undefined){
+    if(RECOMMENDED[n]>0){S.imameMode='every'; S.imameEvery=RECOMMENDED[n]; msg+=` · imame her ${RECOMMENDED[n]}'de`;}
+    else {S.imameMode='none'; msg+=' · imame yok';}
+  }
+  save(); renderChips(); buildRing(); prevCur=0; render(false,true); toast(msg);
+}
+async function customTotal(){
+  const r=await dialog({title:'Kaç zikirlik tesbih?',text:'1 ile 9999 arasında bir sayı yazın.',input:{type:'number',inputmode:'numeric',placeholder:'Örn. 40',value:''},buttons:[{label:'Vazgeç',value:'no'},{label:'Tamam',value:'ok',primary:true}]});
+  if(!r||r.value!=='ok') return;
+  const n=parseInt(r.input,10);
+  if(!(n>=1&&n<=9999)){toast('1-9999 arası bir sayı girin'); return;}
+  setTotal(n);
+}
+async function pickName(){
+  const r=await dialog({title:'Zikir seç',buttons:[...PRESET_NAMES.map(n=>({label:n,value:n})),{label:'✎ Kendi zikrimi yazayım…',value:'__custom',primary:true},{label:'Vazgeç',value:'__x'}]});
+  if(!r||r.value==='__x') return;
+  let name=r.value;
+  if(name==='__custom'){
+    const r2=await dialog({title:'Zikrin adı',input:{placeholder:'Örn. Hasbünallah',value:''},buttons:[{label:'Vazgeç',value:'x'},{label:'Tamam',value:'ok',primary:true}]});
+    if(!r2||r2.value!=='ok'||!r2.input.trim()) return;
+    name=r2.input.trim().slice(0,40);
+  }
+  const S=D.settings, st=D.state;
+  if(name===S.name) return;
+  if(st.count>0||st.session>0){
+    const r3=await dialog({title:'Zikir değişsin mi?',text:`Şimdiye kadarki ${st.session} zikir geçmişe kaydedilir ve sayaç sıfırlanır.`,buttons:[{label:'Vazgeç',value:'no'},{label:'Değiştir',value:'yes',primary:true}]});
+    if(!r3||r3.value!=='yes') return;
+    flushSession();
+  }
+  S.name=name; st.count=0; st.rounds=0; save(); render(false,true); toast('Yeni zikre başlandı');
+}
+
+/* ---------- Sekmeler ---------- */
+const TABS=['zikir','gecmis','ayar'];
+let curTab='zikir';
+function showTab(name){
+  if(name==='ayar'&&!DR) DR=clone(D.settings);              // ayarlara girerken taslak oluştur
+  if(curTab==='ayar'&&name!=='ayar'){DR=null; applyTheme(D.settings.theme);} // çıkarken taslağı bırak, kayıtlı temaya dön
+  curTab=name;
+  TABS.forEach(t=>$('tab-'+t).classList.toggle('active',t===name));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===name));
+  $('ind').style.transform=`translateX(${TABS.indexOf(name)*100}%)`;
+  if(name==='gecmis') renderHistory();
+  if(name==='ayar'){renderSettings(); $('tab-ayar').scrollTop=0;}
+}
+function isDirty(){return !!DR&&JSON.stringify(DR)!==JSON.stringify(D.settings);}
+async function gotoTab(name){
+  if(curTab==='ayar'&&name!=='ayar'){
+    flushInputs();
+    if(isDirty()){
+      const r=await dialog({title:'Ayarlar kaydedilsin mi?',text:'Yaptığınız değişiklikler henüz kaydedilmedi.',
+        buttons:[{label:'Kaydet',value:'save',primary:true},{label:'Kaydetmeden çık',value:'drop'},{label:'Burada kal',value:'stay'}]});
+      if(!r||r.value==='stay') return;
+      if(r.value==='save'){commitSettings(name); return;}
+    }
+  }
+  showTab(name);
+}
+
+/* ---------- Geçmiş ---------- */
+function renderHistory(){
+  const H=D.history.slice().sort((a,b)=>b.ts-a.ts), body=$('histBody');
+  const d0=new Date(); d0.setHours(0,0,0,0);
+  const todayStart=d0.getTime(), weekStart=todayStart-6*864e5;
+  let sToday=0,sWeek=0,sAll=0;
+  H.forEach(h=>{sAll+=h.count; if(h.ts>=todayStart) sToday+=h.count; if(h.ts>=weekStart) sWeek+=h.count;});
+  let html=`<div class="sums"><div class="sum"><b>${sToday}</b><span>Bugün</span></div><div class="sum"><b>${sWeek}</b><span>Son 7 gün</span></div><div class="sum"><b>${sAll}</b><span>Toplam</span></div></div>`;
+  if(!H.length){
+    html+=`<div class="empty">Henüz kayıt yok.<br>Zikir ekranında <b>Kaydet</b> düğmesine basınca<br>zikirleriniz burada tarih ve saatle görünür.</div>`;
+  }else{
+    const groups=[], map={};
+    H.forEach(h=>{const k=dayKey(h.ts); if(!map[k]){map[k]={key:k,ts:h.ts,items:[],sum:0}; groups.push(map[k]);} map[k].items.push(h); map[k].sum+=h.count;});
+    const tk=dayKey(Date.now()), yk=dayKey(Date.now()-864e5);
+    groups.forEach(g=>{
+      const label=g.key===tk?'Bugün':g.key===yk?'Dün':fmtDate(g.ts);
+      html+=`<div class="day"><div class="dayh"><b>${esc(label)}</b><span>${(g.key===tk||g.key===yk)?esc(fmtDate(g.ts))+' · ':''}toplam ${g.sum}</span></div>`;
+      g.items.forEach(h=>{html+=`<div class="hrow"><div class="ht">${fmtTime(h.ts)}</div><div class="hn">${esc(h.name)}</div><div class="hc">${h.count}</div><button class="hdel" data-del="${esc(h.id)}" aria-label="Sil">✕</button></div>`;});
+      html+='</div>';
+    });
+    html+=`<button class="dangerbtn" id="clearHist">Tüm geçmişi sil</button>`;
+  }
+  body.innerHTML=html;
+}
+$('histBody').addEventListener('click',async e=>{
+  const del=e.target.closest('[data-del]');
+  if(del){
+    const r=await dialog({title:'Kayıt silinsin mi?',buttons:[{label:'Vazgeç',value:'no'},{label:'Sil',value:'yes',primary:true}]});
+    if(r&&r.value==='yes'){D.history=D.history.filter(h=>h.id!==del.dataset.del); save(); renderHistory();}
+    return;
+  }
+  if(e.target.id==='clearHist'){
+    const r=await dialog({title:'Tüm geçmiş silinsin mi?',text:'Bu işlem geri alınamaz.',buttons:[{label:'Vazgeç',value:'no'},{label:'Hepsini sil',value:'yes',primary:true}]});
+    if(r&&r.value==='yes'){D.history=[]; save(); renderHistory();}
+  }
+});
+
+/* ---------- Ayarlar (taslak üzerinde çalışır) ---------- */
+function segs(key,map,cur){
+  return `<div class="segs">`+Object.keys(map).map(v=>`<button class="seg${String(cur)===v?' on':''}" data-k="${key}" data-v="${v}">${esc(map[v])}</button>`).join('')+`</div>`;
+}
+function sw(key,label,val,hint){
+  return `<div class="row"><label for="sw_${key}">${label}</label><span class="sw"><input type="checkbox" id="sw_${key}" data-k="${key}" ${val?'checked':''}><i></i></span></div>`+(hint?`<div class="hint">${hint}</div>`:'');
+}
+function themeCards(cur){
+  return `<div class="themes">`+THEMES.map(t=>{
+    const dots=[8,26,44,62,80].map((l,i)=>{
+      const col=i===2?t.c[2]:(i===1||i===3)?t.c[1]:t.c[0], s=i===2?16:12;
+      return `<i style="left:${l}%;width:${s}px;height:${s}px;background:${col};bottom:${i===2?8:10}px"></i>`;
+    }).join('');
+    return `<button class="theme${cur===t.id?' on':''}" data-k="theme" data-v="${t.id}"><div class="pv" style="background:${t.bg}">${t.moon?'<b class="pm"></b>':''}${dots}</div><div class="tn"><b>${esc(t.name)}</b><span>${esc(t.desc)}</span></div></button>`;
+  }).join('')+`</div>`;
+}
+function renderSettings(){
+  if(!DR) DR=clone(D.settings);
+  const S=DR;
+  const vibNote=(navigator.vibrate||window.ZikirNative)?'':'<div class="hint">⚠ Bu tarayıcı titreşimi desteklemiyor. Android\'de Chrome ile açın.</div>';
+  $('setBody').innerHTML=`
+  <div class="card"><h3>Tema</h3>
+    ${themeCards(S.theme)}
+    <div class="hint">Seçtiğiniz tema hemen önizlenir, Kaydet'e basınca kalıcı olur.</div>
+  </div>
+  <div class="card"><h3>İmame (duraklar)</h3>
+    ${segs('imameMode',{none:'Yok',every:'Aralıklı',custom:'Özel yerler'},S.imameMode)}
+    ${S.imameMode==='every'?`<div class="row"><label>Her kaç zikirde bir?</label></div><input class="inp" type="number" inputmode="numeric" min="1" data-k="imameEvery" value="${S.imameEvery}">
+      <div class="hint">Örnek: 33 yazarsanız 100'lük tesbihte 33, 66 ve 99'da imame olur.</div>`:''}
+    ${S.imameMode==='custom'?`<div class="row"><label>İmame yerleri (virgülle)</label></div><input class="inp" type="text" inputmode="text" data-k="imameCustom" value="${esc(S.imameCustom.join(', '))}" placeholder="Örn. 25, 50, 75">
+      <div class="hint">Tesbihin sonuna gelince "tur tamamlandı" bildirimi ayrıca çalar.</div>`:''}
+  </div>
+  <div class="card"><h3>İmamede ne olsun?</h3>
+    ${segs('imameFb',FB_LABEL,S.imameFb)}
+    <div class="row"><label>Ses seçimi</label></div>
+    ${segs('sound',SOUND_LABEL,S.sound)}
+    <div class="row"><label>Titreşim şekli</label></div>
+    ${segs('vibPattern',VIB_LABEL,S.vibPattern)}
+    ${vibNote}
+    <div class="row"><label>Ses seviyesi</label></div>
+    <input type="range" min="0.1" max="1" step="0.05" value="${S.volume}" data-k="volume">
+    <button class="testbtn" id="testImame">▶ İmame bildirimini dene</button>
+  </div>
+  <div class="card"><h3>Tur bitince ne olsun?</h3>
+    ${segs('turFb',FB_LABEL,S.turFb)}
+    <div class="hint">Tur sonunda ses üç kez, titreşim uzun ve belirgin olur.</div>
+    <button class="testbtn" id="testTur">▶ Tur sonunu dene</button>
+  </div>
+  <div class="card"><h3>Her zikirde (tesbih boncuğu)</h3>
+    ${segs('tapFb',FB_LABEL,S.tapFb)}
+    <div class="row"><label>Titreşim şekli</label></div>
+    ${segs('tapVibPattern',TAPVIB_LABEL,S.tapVibPattern)}
+    <div class="row"><label>Ses seçimi</label></div>
+    ${segs('tapSound',TAPSOUND_LABEL,S.tapSound)}
+    <div class="hint">Her dokunuşta, boncuk ilerlerken seçtiğiniz titreşim ve/veya ses çalar. Ses seviyesi yukarıdaki ayarı kullanır.</div>
+    <button class="testbtn" id="testTap">▶ Boncuk bildirimini dene</button>
+  </div>
+  <div class="card"><h3>Genel</h3>
+    ${sw('keepAwake','Ekran açık kalsın',S.keepAwake,'Zikir çekerken ekran kararmaz. Pili biraz daha çok kullanır.')}
+    ${sw('autoSave','Tur bitince geçmişe otomatik kaydet',S.autoSave,'Kapalıyken kayıt için zikir ekranındaki Kaydet düğmesini kullanın.')}
+  </div>
+  <div class="hint" style="text-align:center;margin:8px 0 0">Zikirmatik v3 · Sayaç ve geçmiş telefonda otomatik saklanır, uygulamayı kapatıp açınca kaldığınız yerden devam edersiniz.</div>
+  <div class="savebar"><button class="savebtn" id="saveSettings">✓ Kaydet</button></div>`;
+}
+function rerenderSettings(){
+  const tab=$('tab-ayar'), y=tab.scrollTop;
+  renderSettings(); tab.scrollTop=y;
+}
+let wakeLock=null;
+async function applyWake(){
+  try{
+    if(window.ZikirNative&&ZikirNative.keepAwake){ZikirNative.keepAwake(!!D.settings.keepAwake); return;}
+    if(D.settings.keepAwake&&'wakeLock' in navigator&&document.visibilityState==='visible'){ if(!wakeLock) {wakeLock=await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release',()=>{wakeLock=null;});} }
+    else if(wakeLock){await wakeLock.release(); wakeLock=null;}
+  }catch(e){wakeLock=null;}
+}
+document.addEventListener('visibilitychange',applyWake);
+
+/* taslağa yazar (kalıcı kayıt Kaydet düğmesinde) */
+function applySetting(k,v){
+  if(!DR) return;
+  const S=DR;
+  switch(k){
+    case 'imameEvery':{const n=parseInt(v,10); S.imameEvery=(n>=1&&n<=9999)?n:S.imameEvery; break;}
+    case 'imameCustom':{S.imameCustom=String(v).split(/[^0-9]+/).map(x=>parseInt(x,10)).filter(x=>x>0).sort((a,b)=>a-b).filter((x,i,a)=>a.indexOf(x)===i); break;}
+    case 'volume':S.volume=Math.min(1,Math.max(0.1,parseFloat(v)||0.7)); break;
+    case 'keepAwake': case 'autoSave': S[k]=!!v; break;
+    default: S[k]=v;
+  }
+  if(k==='theme') applyTheme(v);
+}
+function flushInputs(){
+  if(!DR) return;
+  document.querySelectorAll('#setBody input[data-k]').forEach(el=>{
+    if(el.type==='checkbox'||el.type==='range') return;
+    applySetting(el.dataset.k,el.value);
+  });
+}
+function commitSettings(target){
+  flushInputs();
+  const S=D.settings, keep={total:S.total,name:S.name};
+  Object.assign(S,DR,keep);
+  DR=null;
+  save(); applyTheme(S.theme); applyWake();
+  buildRing(); prevCur=0; render(false,true);
+  showTab(target||'zikir');
+  toast('Ayarlar kaydedildi ✓'); vib(30);
+}
+$('setBody').addEventListener('click',e=>{
+  if(e.target.closest('#saveSettings')){commitSettings('zikir'); return;}
+  const b=e.target.closest('button[data-k]');
+  if(b){
+    const k=b.dataset.k, v=b.dataset.v;
+    applySetting(k,v);
+    rerenderSettings();
+    if(k==='sound') playSound(v,'imame');
+    else if(k==='vibPattern') vib(VIB[v]);
+    else if(k==='imameFb') doFb(v,'imame');
+    else if(k==='turFb') doFb(v,'tur');
+    else if(k==='tapFb') doTapFb(false);
+    else if(k==='tapVibPattern') vib(VIB_TAP[v]);
+    else if(k==='tapSound') (SOUNDS[v]||SOUNDS.tik)(1,0);
+    return;
+  }
+  const id=e.target.id;
+  if(id==='testImame') doFb(DR.imameFb==='none'?'both':DR.imameFb,'imame');
+  else if(id==='testTur') doFb(DR.turFb==='none'?'both':DR.turFb,'tur');
+  else if(id==='testTap') doTapFb(true);
+});
+$('setBody').addEventListener('change',e=>{
+  const t=e.target; if(!t.dataset||!t.dataset.k) return;
+  const k=t.dataset.k;
+  if(t.type==='checkbox') applySetting(k,t.checked);
+  else if(t.type==='range'){applySetting(k,t.value); playSound(DR.sound,'imame');}
+  else{ // yazı kutuları: sayfayı yeniden çizmeden temizlenmiş değeri geri yaz
+    applySetting(k,t.value);
+    if(k==='imameEvery') t.value=DR.imameEvery;
+    if(k==='imameCustom') t.value=DR.imameCustom.join(', ');
+  }
+});
+$('setBody').addEventListener('input',e=>{if(e.target.type==='range'&&DR) DR.volume=parseFloat(e.target.value);});
+
+/* ---------- Olaylar ---------- */
+const tapBtn=$('tapBtn');
+tapBtn.addEventListener('pointerdown',e=>{e.preventDefault(); tapBtn.classList.add('down'); tap();});
+['pointerup','pointercancel','pointerleave'].forEach(ev=>tapBtn.addEventListener(ev,()=>tapBtn.classList.remove('down')));
+tapBtn.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault(); tap();}});
+tapBtn.addEventListener('contextmenu',e=>e.preventDefault());
+$('undoBtn').onclick=undo; $('saveBtn').onclick=saveSession; $('resetBtn').onclick=resetAll; $('nameBtn').onclick=pickName;
+$('infoLine').onclick=()=>gotoTab('ayar');
+$('totalChips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip'); if(!c) return;
+  if(c.dataset.n==='custom') customTotal(); else setTotal(parseInt(c.dataset.n,10));
+});
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>gotoTab(b.dataset.tab)));
+document.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* arka plan: yıldızlar ve (Ay Işığı temasında görünen) ateş böcekleri */
+(()=>{
+  const s=$('stars');
+  for(let i=0;i<26;i++){
+    const d=document.createElement('i'); d.style.left=Math.random()*100+'%'; d.style.top=Math.random()*100+'%';
+    d.style.animationDelay=(Math.random()*4).toFixed(2)+'s'; d.style.animationDuration=(3+Math.random()*4).toFixed(2)+'s'; s.appendChild(d);
+  }
+  for(let i=0;i<12;i++){
+    const f=document.createElement('span'); f.className='ff';
+    f.style.left=(5+Math.random()*90).toFixed(1)+'%'; f.style.top=(38+Math.random()*57).toFixed(1)+'%';
+    f.style.setProperty('--x',((Math.random()-.5)*90).toFixed(0)+'px'); f.style.setProperty('--y',((Math.random()-.5)*70).toFixed(0)+'px');
+    f.style.setProperty('--d',(7+Math.random()*7).toFixed(1)+'s'); f.style.animationDelay=(Math.random()*8).toFixed(1)+'s'; s.appendChild(f);
+  }
+})();
+
+/* başlangıç */
+applyTheme(D.settings.theme);
+renderChips(); buildRing(); render(false,true); applyWake();
+})();
+</script>
+</body>
+</html>
